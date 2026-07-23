@@ -1,17 +1,29 @@
 import { Container } from "./Container";
 import { site } from "@/content/site";
 
-export function Hero() {
-  return (
-    <section id="top" className="relative overflow-hidden border-b border-border bg-grid-lines">
-      <Container className="py-24 md:py-36">
-        <p className="font-mono text-sm tracking-widest text-accent uppercase">Emil Karlsson</p>
-        <h1 className="mt-4 max-w-3xl text-4xl md:text-6xl font-semibold tracking-tight text-foreground">
-          {site.title}
-        </h1>
-        <p className="mt-6 max-w-xl text-lg md:text-xl text-muted">{site.supportingText}</p>
+// Force the title onto exactly two lines ("Developer with a" / "systems
+// perspective") instead of relying on responsive wrapping, without
+// duplicating the copy from site.title in two places.
+const TITLE_HIGHLIGHT = "systems perspective";
 
-        <div className="mt-10 flex flex-wrap items-center gap-4">
+export function Hero() {
+  const [titleLead] = site.title.split(TITLE_HIGHLIGHT);
+
+  return (
+    <section
+      id="top"
+      className="relative flex min-h-[calc(100vh-73px)] items-center overflow-hidden border-b border-border bg-grid-lines"
+    >
+      <Container className="py-12 md:py-16">
+        <h1 className="mt-4 max-w-4xl py-1 text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.2] tracking-tight text-foreground">
+          {titleLead.trim() + " "}
+          {TITLE_HIGHLIGHT}
+        </h1>
+        <p className="mt-5 max-w-xl font-handwritten text-lg md:text-xl text-muted">
+          {site.supportingText}
+        </p>
+
+        <div className="mt-8 flex flex-wrap items-center gap-4">
           <a
             href="#work"
             className="inline-flex items-center rounded-md bg-foreground px-5 py-3 text-sm font-medium text-background transition-colors hover:bg-foreground/90"
@@ -21,13 +33,13 @@ export function Hero() {
           <a
             href={site.contact.cvHref}
             download
-            className="inline-flex items-center rounded-md border border-border px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-foreground"
+            className="inline-flex items-center rounded-md border border-border bg-surface px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-foreground"
           >
             Download CV
           </a>
         </div>
 
-        <p className="mt-12 font-mono text-xs md:text-sm text-muted">
+        <p className="mt-10 font-mono text-xs md:text-sm text-muted">
           {site.techRow.join(" · ")}
         </p>
       </Container>

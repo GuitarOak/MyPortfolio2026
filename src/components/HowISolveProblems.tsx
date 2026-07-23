@@ -22,12 +22,12 @@ const steps = [
 
 export function HowISolveProblems() {
   return (
-    <section className="border-b border-border py-20 md:py-28">
+    <section className="border-b border-border bg-grid-lines py-20 md:py-28">
       <Container>
         <SectionHeading number="02" title="How I Solve Problems" />
         <div className="grid gap-8 md:grid-cols-4">
           {steps.map((step, index) => (
-            <div key={step.title} className="border-t-2 border-accent pt-4">
+            <div key={step.title} className="">
               <span className="font-mono text-xs text-muted">{String(index + 1).padStart(2, "0")}</span>
               <h3 className="mt-2 text-xl font-semibold text-foreground">{step.title}</h3>
               <ul className="mt-3 space-y-1.5 text-sm text-muted">

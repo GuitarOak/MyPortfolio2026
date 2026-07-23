@@ -4,9 +4,9 @@ import { experience } from "@/content/experience";
 
 export function Experience() {
   return (
-    <section id="experience" className="border-b border-border py-20 md:py-28">
+    <section id="experience" className="border-b border-border bg-grid-lines py-20 md:py-28">
       <Container>
-        <SectionHeading number="05" title="Experience" />
+        <SectionHeading number="04" title="Experience" />
         <ol className="space-y-10">
           {experience.map((entry) => (
             <li key={`${entry.company}-${entry.role}`} className="grid gap-4 md:grid-cols-[1fr_2fr]">

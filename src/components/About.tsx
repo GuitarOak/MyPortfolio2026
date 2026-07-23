@@ -3,10 +3,10 @@ import { SectionHeading } from "./SectionHeading";
 
 export function About() {
   return (
-    <section id="about" className="border-b border-border py-20 md:py-28">
+    <section id="about" className="border-b border-border bg-grid-lines py-20 md:py-28">
       <Container className="max-w-3xl">
-        <SectionHeading number="06" title="About" />
-        <div className="space-y-5 text-base md:text-lg text-foreground">
+        <SectionHeading number="05" title="About" />
+        <div className="space-y-5 text-base md:text-sm text-foreground">
           <p>
             My background is in SEO, digital growth and client-facing work. Over time, I increasingly moved
             toward the technical problems behind the results — building internal tools, improving web

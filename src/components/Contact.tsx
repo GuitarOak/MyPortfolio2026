@@ -5,9 +5,9 @@ import { site } from "@/content/site";
 export function Contact() {
   const { contact } = site;
   return (
-    <section id="contact" className="py-20 md:py-28">
+    <section id="contact" className="bg-grid-lines py-20 md:py-28">
       <Container className="max-w-3xl">
-        <SectionHeading number="07" title="Contact" />
+        <SectionHeading number="06" title="Contact" />
         <p className="max-w-xl text-base md:text-lg text-foreground">
           I am looking for developer, application specialist and junior solution-architecture roles where I
           can combine hands-on implementation with systems thinking and technical ownership.
@@ -57,7 +57,7 @@ export function Contact() {
         <a
           href={contact.cvHref}
           download
-          className="mt-10 inline-flex items-center rounded-md border border-border px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-foreground"
+          className="mt-10 inline-flex items-center rounded-md border border-border bg-surface px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-foreground"
         >
           Download CV
         </a>
