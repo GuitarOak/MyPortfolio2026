@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+/* Design tokens: minimal, technical, editorial palette. Single light theme
+   for now — dark mode is an explicit Phase 5 expansion item, not built yet. */
+:root {
+  --background: #f7f6f3;
+  --surface: #ffffff;
+  --foreground: #111111;
+  --muted: #63625d;
+  --border: rgba(17, 17, 17, 0.12);
+  --accent: #b45309;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Clear, visible focus states for keyboard navigation (project.md Accessibility). */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Subtle grid-line background used behind sections for the technical/editorial feel. */
+.bg-grid-lines {
+  background-image: linear-gradient(to right, var(--border) 1px, transparent 1px);
+  background-size: 100px 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
