@@ -16,7 +16,8 @@ export type ProjectStatus =
   | "Integration"
   | "Case study"
   | "In production"
-  | "Content pending";
+  | "Content pending"
+  | "Paused";
 
 export type Project = {
   slug: string;

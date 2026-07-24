@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -11,7 +12,7 @@ import { site } from "@/content/site";
 // Only projects with real, confirmed content get a case-study page. Adding a
 // slug here without real content would violate project.md's "never invent"
 // constraint, so this stays a deliberate allowlist rather than "all projects".
-const CASE_STUDY_SLUGS = ["internal-metrics-platform"];
+const CASE_STUDY_SLUGS = ["internal-metrics-platform", "link-proposal-workflow-system"];
 
 // Architecture diagram + reflection, taken directly from project.md's
 // Architecture Case Study example. Specific to the Internal Metrics Platform,
@@ -77,14 +78,16 @@ export default async function ProjectCaseStudyPage({
             </h1>
             <p className="mt-4 max-w-2xl text-lg text-muted">{project.summary}</p>
 
-            <div
-              className="mt-10 flex aspect-video items-center justify-center border border-dashed border-border bg-surface font-pencil text-lg text-muted"
-              aria-hidden
-            >
-              {project.screenshots && project.screenshots.length > 0
-                ? "Screenshot"
-                : "(screenshot / diagram goes here)"}
-            </div>
+            {project.screenshots && project.screenshots.length > 0 && (
+              <div className="relative mt-10 aspect-video overflow-hidden border border-border bg-surface">
+                <Image
+                  src={project.screenshots[0]}
+                  alt={`Screenshot of ${project.title}`}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            )}
           </Container>
         </section>
 

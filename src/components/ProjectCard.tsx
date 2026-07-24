@@ -1,10 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Project } from "@/content/types";
 import { StatusLabel } from "./StatusLabel";
 
 // A project only gets a dedicated case-study page once it has real content.
-// Right now that's just the Internal Metrics Platform.
-const CASE_STUDY_SLUGS = new Set(["internal-metrics-platform"]);
+const CASE_STUDY_SLUGS = new Set(["internal-metrics-platform", "link-proposal-workflow-system"]);
 
 export function ProjectCard({ project }: { project: Project }) {
   const hasCaseStudy = CASE_STUDY_SLUGS.has(project.slug);
@@ -22,13 +22,16 @@ export function ProjectCard({ project }: { project: Project }) {
       </h3>
       <p className="mt-3 text-base text-muted">{project.summary}</p>
 
-      {/* Placeholder image slot: no real screenshots supplied yet. */}
-      <div
-        className="mt-6 flex aspect-video items-center justify-center border border-dashed border-border bg-background font-pencil text-base text-muted"
-        aria-hidden
-      >
-        {project.screenshots && project.screenshots.length > 0 ? "Screenshot" : "(screenshot / diagram goes here)"}
-      </div>
+      {project.screenshots && project.screenshots.length > 0 && (
+        <div className="relative mt-6 aspect-video overflow-hidden border border-border bg-background">
+          <Image
+            src={project.screenshots[0]}
+            alt={`Screenshot of ${project.title}`}
+            fill
+            className="object-cover"
+          />
+        </div>
+      )}
 
       <div className="mt-8">
         <h4 className="font-mono text-xs uppercase tracking-wide text-muted">Problem</h4>
