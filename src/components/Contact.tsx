@@ -5,7 +5,7 @@ import { site } from "@/content/site";
 export function Contact() {
   const { contact } = site;
   return (
-    <section id="contact" className="bg-grid-lines py-20 md:py-28">
+    <section id="contact" className="py-20 md:py-28">
       <Container className="max-w-3xl">
         <SectionHeading number="06" title="Contact" />
         <p className="max-w-xl text-base md:text-lg text-foreground">

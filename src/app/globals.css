@@ -25,8 +25,17 @@
   --font-handwritten: var(--font-handwritten);
 }
 
+/* The grid lives on body (not per-section) so it forms one continuous sheet
+   of graph paper across the whole page — sections no longer each reset their
+   own grid origin at their top edge, which was causing visible seams/
+   misalignment at section borders whenever a section's height wasn't an
+   exact multiple of the grid unit. */
 body {
-  background: var(--background);
+  background-color: var(--background);
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
   color: var(--foreground);
   font-family: var(--font-sans), monospace;
   line-height: 1.6;
@@ -48,15 +57,6 @@ h6 {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 2px;
-}
-
-/* Retro blueprint/graph-paper grid used consistently behind every section,
-   matching the Hero's original vibe (project.md's "subtle grid lines"). */
-.bg-grid-lines {
-  background-image:
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 64px 64px;
 }
 
 /* Hand-drawn marker underline, used sparingly on emphasized words to lean into

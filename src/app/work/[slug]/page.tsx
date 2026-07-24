@@ -60,7 +60,7 @@ export default async function ProjectCaseStudyPage({
     <>
       <Nav />
       <main className="flex-1">
-        <section className="border-b border-border bg-grid-lines py-16 md:py-24">
+        <section className="py-16 md:py-24">
           <Container className="max-w-4xl">
             <Link href="/#work" className="font-pencil text-lg text-muted hover:text-accent">
               ← Back to selected work

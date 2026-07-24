@@ -4,7 +4,7 @@ import { capabilities } from "@/content/experience";
 
 export function Capabilities() {
   return (
-    <section id="capabilities" className="border-b border-border bg-grid-lines py-20 md:py-28">
+    <section id="capabilities" className="py-20 md:py-28">
       <Container>
         <SectionHeading number="03" title="Capabilities" />
         <div className="grid gap-10 md:grid-cols-3">

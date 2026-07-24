@@ -12,7 +12,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[calc(100vh-73px)] items-center overflow-hidden border-b border-border bg-grid-lines"
+      className="relative flex min-h-[calc(100vh-73px)] items-center overflow-hidden"
     >
       <Container className="py-12 md:py-16">
         <h1 className="mt-4 max-w-4xl py-1 text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.2] tracking-tight text-foreground">

@@ -56,7 +56,6 @@ export const capabilities: CapabilityGroup[] = [
       "Pull requests",
       "CI/CD",
       "Vercel",
-      "Testing",
       "Accessibility",
       "Performance",
       "Technical SEO",

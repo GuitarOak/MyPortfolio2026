@@ -4,7 +4,7 @@ import { experience } from "@/content/experience";
 
 export function Experience() {
   return (
-    <section id="experience" className="border-b border-border bg-grid-lines py-20 md:py-28">
+    <section id="experience" className="py-20 md:py-28">
       <Container>
         <SectionHeading number="04" title="Experience" />
         <ol className="space-y-10">

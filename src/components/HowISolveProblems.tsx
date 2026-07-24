@@ -22,7 +22,7 @@ const steps = [
 
 export function HowISolveProblems() {
   return (
-    <section className="border-b border-border bg-grid-lines py-20 md:py-28">
+    <section className="py-20 md:py-28">
       <Container>
         <SectionHeading number="02" title="How I Solve Problems" />
         <div className="grid gap-8 md:grid-cols-4">

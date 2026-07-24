@@ -8,8 +8,12 @@ export const projects: Project[] = [
       "An internal dashboard platform for managing website data, pricing, metrics, filtering workflows and bulk operations.",
     statuses: ["Built", "Internal tool", "In production"],
     problem:
-      "IncRev needed a single internal system to manage website data, pricing and performance metrics, with advanced filtering, bulk operations and export capabilities, gated by role-based access. TODO: add specific context on what existed before this platform (manual processes, spreadsheets, disparate tools) and why it became necessary.",
-    stakeholders: ["TODO: confirm internal teams / roles who use this platform (e.g. operations, sales, management)."],
+      "Before this platform, IncRev managed website data, pricing and performance metrics in a single massive Excel sheet. It was slow, heavy and almost impossible to keep up to date manually. IncRev needed a single internal system with advanced filtering, bulk operations and export capabilities, gated by role-based access, where metrics stay current automatically via API integrations instead of manual upkeep.",
+    stakeholders: [
+      "Outreach team — adds new websites to the platform",
+      "Pricing/operations — keeps pricing data up to date",
+      "Sales team — finds sites for clients",
+    ],
     responsibility: [
       "Built and maintained the internal dashboard platform end to end",
       "Developed filtering systems, export functionality and bulk operations",
@@ -33,7 +37,10 @@ export const projects: Project[] = [
       "Firebase allowed rapid development, authentication and flexible data storage. However, the nested document structure made some bulk operations and reporting more complicated. At greater scale, a relational model or a dedicated search and reporting layer would need to be evaluated.",
     ],
     outcomes: [
-      "TODO: add the concrete business result or measurable impact of this platform (e.g. time saved, processes replaced, scale of data managed).",
+      "Replaced a slow, hard-to-maintain Excel sheet with a system where every metric is always up to date via API integrations",
+      "Used daily across the company — by outreach, pricing/operations and sales",
+      "Saves time for everyone who previously relied on the manual spreadsheet",
+      "Makes website and pricing management significantly more scalable",
     ],
     screenshots: [],
   },
