@@ -1,5 +1,6 @@
 import { Container } from "./Container";
 import { SectionHeading } from "./SectionHeading";
+import { RevealGroup } from "./RevealGroup";
 import { site } from "@/content/site";
 
 export function Contact() {
@@ -8,12 +9,14 @@ export function Contact() {
     <section id="contact" className="py-20 md:py-28">
       <Container className="max-w-3xl">
         <SectionHeading number="06" title="Contact" />
-        <p className="max-w-xl text-base md:text-lg text-foreground">
-          I am looking for developer, application specialist and junior solution-architecture roles where I
-          can combine hands-on implementation with systems thinking and technical ownership.
-        </p>
+        <RevealGroup>
+          <p className="max-w-xl text-base md:text-lg text-foreground">
+            I am looking for developer, application specialist and junior solution-architecture roles where I
+            can combine hands-on implementation with systems thinking and technical ownership.
+          </p>
+        </RevealGroup>
 
-        <dl className="mt-10 grid gap-6 sm:grid-cols-2">
+        <RevealGroup as="dl" className="mt-10 grid gap-6 sm:grid-cols-2">
           <div>
             <dt className="font-mono text-xs uppercase tracking-wide text-muted">Email</dt>
             <dd className="mt-1">
@@ -52,15 +55,18 @@ export function Contact() {
             <dt className="font-mono text-xs uppercase tracking-wide text-muted">Location</dt>
             <dd className="mt-1 text-foreground">{contact.location} &middot; {contact.preference}</dd>
           </div>
-        </dl>
+        </RevealGroup>
 
-        <a
-          href={contact.cvHref}
-          download
-          className="mt-10 inline-flex items-center rounded-md border border-border bg-surface px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-foreground"
-        >
-          Download CV
-        </a>
+        {/* Wrapper carries the top margin so the anchor keeps inline-flex sizing. */}
+        <RevealGroup className="mt-10">
+          <a
+            href={contact.cvHref}
+            download
+            className="inline-flex items-center rounded-md border border-border bg-surface px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-foreground"
+          >
+            Download CV
+          </a>
+        </RevealGroup>
       </Container>
     </section>
   );

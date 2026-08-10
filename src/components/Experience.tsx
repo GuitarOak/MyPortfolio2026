@@ -1,5 +1,6 @@
 import { Container } from "./Container";
 import { SectionHeading } from "./SectionHeading";
+import { RevealGroup } from "./RevealGroup";
 import { experience } from "@/content/experience";
 
 export function Experience() {
@@ -7,7 +8,7 @@ export function Experience() {
     <section id="experience" className="py-20 md:py-28">
       <Container>
         <SectionHeading number="04" title="Experience" />
-        <ol className="space-y-10">
+        <RevealGroup as="ol" className="space-y-10" stagger={0.15}>
           {experience.map((entry) => (
             <li key={`${entry.company}-${entry.role}`} className="grid gap-4 md:grid-cols-[1fr_2fr]">
               <div>
@@ -22,7 +23,7 @@ export function Experience() {
               </ul>
             </li>
           ))}
-        </ol>
+        </RevealGroup>
       </Container>
     </section>
   );

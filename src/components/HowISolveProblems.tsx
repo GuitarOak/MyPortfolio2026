@@ -1,5 +1,6 @@
 import { Container } from "./Container";
 import { SectionHeading } from "./SectionHeading";
+import { RevealGroup } from "./RevealGroup";
 
 const steps = [
   {
@@ -25,7 +26,7 @@ export function HowISolveProblems() {
     <section className="py-20 md:py-28">
       <Container>
         <SectionHeading number="02" title="How I Solve Problems" />
-        <div className="grid gap-8 md:grid-cols-4">
+        <RevealGroup className="grid gap-8 md:grid-cols-4">
           {steps.map((step, index) => (
             <div key={step.title} className="">
               <span className="font-mono text-xs text-muted">{String(index + 1).padStart(2, "0")}</span>
@@ -37,7 +38,7 @@ export function HowISolveProblems() {
               </ul>
             </div>
           ))}
-        </div>
+        </RevealGroup>
       </Container>
     </section>
   );

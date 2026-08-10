@@ -1,5 +1,6 @@
 import { Container } from "./Container";
 import { SectionHeading } from "./SectionHeading";
+import { RevealGroup } from "./RevealGroup";
 import { capabilities } from "@/content/experience";
 
 export function Capabilities() {
@@ -7,7 +8,7 @@ export function Capabilities() {
     <section id="capabilities" className="py-20 md:py-28">
       <Container>
         <SectionHeading number="03" title="Capabilities" />
-        <div className="grid gap-10 md:grid-cols-3">
+        <RevealGroup className="grid gap-10 md:grid-cols-3">
           {capabilities.map((group) => (
             <div key={group.title}>
               <h3 className="text-lg font-semibold text-foreground">{group.title}</h3>
@@ -18,7 +19,7 @@ export function Capabilities() {
               </ul>
             </div>
           ))}
-        </div>
+        </RevealGroup>
       </Container>
     </section>
   );
