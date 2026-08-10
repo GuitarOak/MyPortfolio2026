@@ -1,6 +1,6 @@
 # GSAP Animation Plan — "Handwritten / Pinned-to-Paper" Direction
 
-Status: **Planning — nothing implemented yet.** This supersedes the phase order
+Status: **In progress — steps 1–3 done.** This supersedes the phase order
 discussed earlier in favor of the merged plan in [Implementation Order](#implementation-order-final)
 below.
 
@@ -124,16 +124,33 @@ conflicts with an existing `project.md` constraint.
 This merges the previously-agreed GSAP phases with the handwritten/pinned
 direction above. Foundation (GSAP install + config) is already done.
 
-1. **Heading write-in + body-follows pattern** (new, this session's ask) —
-   the single most reused piece of motion on the site; build it once as a
-   shared hook/component, apply to `SectionHeading` first, then `Hero`'s `h1`.
-2. **Nav active-link scribble-underline** — small, self-contained, good
-   second step while the heading pattern is still fresh.
-3. **Section scroll-entrances** for content that isn't headings/body text
-   already covered by step 1 (e.g. `ProjectCard`s, capability groups,
-   experience timeline items) — reuses the same ScrollTrigger conventions.
-4. **Scribble draw-in** for `underline-scribble` / `scribble-circle` SVGs
-   (stroke-dashoffset reveal).
+1. ~~**Heading write-in + body-follows pattern**~~ — **DONE.** Built as the
+   shared `useWriteInReveal` hook (`src/hooks/useWriteInReveal.ts`), applied to
+   `SectionHeading` (scroll-triggered) and `Hero`'s `h1` (on load).
+2. ~~**Nav active-link scribble-underline**~~ — **DONE.** `ScribbleUnderline`
+   component (`src/components/ScribbleUnderline.tsx`) animates
+   `stroke-dashoffset` directly instead of using `DrawSVGPlugin`. Draws for the
+   active link and faintly on hover/focus. Same step also switched the wordmark
+   to Rock Salt and replaced the header/footer straight borders with the
+   hand-drawn `.ink-rule-bottom` / `.ink-rule-top` utilities.
+3. ~~**Section scroll-entrances**~~ — **DONE** via the `RevealGroup` component
+   (`src/components/RevealGroup.tsx`), which staggers its direct children.
+   Applied to How I Solve Problems, Capabilities, Experience, About and
+   Contact. **`ProjectCard`s deliberately excluded** — deferred to step 5 so
+   each card animates together with its taped screenshot as one motion.
+4. ~~**Scribble draw-in**~~ — **DONE**, but not as originally written. The
+   `.underline-scribble` / `.scribble-circle` CSS utilities turned out to be
+   (a) a `background-image` and a `border-radius` oval, neither of which can be
+   stroke-animated, and (b) **unused anywhere in the codebase**. So this became
+   a placement decision as much as an animation one. Implemented as real inline
+   SVGs in two deliberate spots only:
+   - `ScribbleUnderline` under "systems perspective" in the Hero `h1`, delayed
+     by `writeInDuration()` so it lands exactly as the heading finishes writing.
+   - `ScribbleCircle` (`src/components/ScribbleCircle.tsx`) around "technical
+     ownership" in Contact — an open, overshooting loop rather than a perfect
+     oval, drawn on scroll-into-view.
+   The two original CSS utilities are now superseded and still unused; safe to
+   delete whenever.
 5. **`TapedImage` component** (washi-tape strip decoration) + apply to
    `ProjectCard` and case-study screenshot slots.
 6. **Architecture diagram sequential animation** on the case-study page —

@@ -2,12 +2,17 @@
 
 import { Container } from "./Container";
 import { site } from "@/content/site";
-import { useWriteInReveal } from "@/hooks/useWriteInReveal";
+import { useWriteInReveal, writeInDuration } from "@/hooks/useWriteInReveal";
+import { ScribbleUnderline } from "./ScribbleUnderline";
 
 // Force the title onto exactly two lines ("Developer with a" / "systems
 // perspective") instead of relying on responsive wrapping, without
 // duplicating the copy from site.title in two places.
 const TITLE_HIGHLIGHT = "systems perspective";
+
+// Derived from the write-in timing rather than hard-coded, so the underline
+// still lands right as the heading finishes even if the title copy changes.
+const UNDERLINE_DELAY = writeInDuration(site.title.length);
 
 export function Hero() {
   const [titleLead] = site.title.split(TITLE_HIGHLIGHT);
@@ -28,7 +33,12 @@ export function Hero() {
           className="mt-4 max-w-4xl py-1 text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.2] tracking-tight text-foreground"
         >
           {titleLead.trim() + " "}
-          {TITLE_HIGHLIGHT}
+          {/* Held back until the write-in finishes, so the pen reads as one
+              gesture: write the words, then underline the key phrase. */}
+          <span className="relative inline-block">
+            {TITLE_HIGHLIGHT}
+            <ScribbleUnderline drawn delay={UNDERLINE_DELAY} className="text-accent" />
+          </span>
         </h1>
 
         <div ref={bodyRef}>

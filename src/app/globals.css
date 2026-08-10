@@ -69,6 +69,36 @@ h6 {
   padding-bottom: 0.05em;
 }
 
+/* Hand-drawn horizontal rule, used instead of a straight 1px border so
+   dividers read as lines ruled by hand rather than CSS borders. The wobble is
+   deliberately shallow — enough to feel drawn, not enough to look sloppy.
+
+   NOTE: this must NOT set `position` itself. Tailwind v4 emits utilities inside
+   a @layer, so unlayered rules like this one win over `sticky`/`relative`
+   utilities no matter the source order — setting `position: relative` here
+   silently broke the sticky header. The consuming element is responsible for
+   establishing its own positioning context (`sticky` and `relative` both do). */
+.ink-rule-bottom::after,
+.ink-rule-top::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 6' preserveAspectRatio='none'%3E%3Cpath d='M0 3.2 C 150 1.9, 260 4.3, 400 3.1 S 620 1.8, 760 3.4 S 980 4.5, 1200 2.7' fill='none' stroke='%23111111' stroke-opacity='0.3' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+}
+.ink-rule-bottom::after {
+  bottom: -1px;
+}
+.ink-rule-top::before {
+  top: -1px;
+  /* Flipped so the top and bottom rules aren't identical strokes. */
+  transform: scaleX(-1);
+}
+
 /* Small rotated scribble/circle mark used as a decorative annotation next to
    headings or callouts — evokes a hand-drawn margin note on graph paper. */
 .scribble-circle {

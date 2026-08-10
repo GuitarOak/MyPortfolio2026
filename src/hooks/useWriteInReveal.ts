@@ -3,6 +3,21 @@
 import { useRef } from "react";
 import { gsap, ScrollTrigger, SplitText, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 
+/** Per-character stagger of the heading write-in, in seconds. */
+export const CHAR_STAGGER = 0.025;
+/** Duration of a single character's reveal, in seconds. */
+export const CHAR_DURATION = 0.45;
+
+/**
+ * How long a heading of `charCount` characters takes to finish writing in.
+ * Exported so anything that needs to land *after* the heading (e.g. the Hero's
+ * scribble underline) can stay in sync with the timing above instead of
+ * hard-coding a guessed delay.
+ */
+export function writeInDuration(charCount: number): number {
+  return charCount * CHAR_STAGGER + CHAR_DURATION;
+}
+
 type WriteInOptions = {
   /**
    * "load" plays immediately on mount (use for content visible on first
@@ -62,8 +77,8 @@ export function useWriteInReveal<
       opacity: 1,
       y: 0,
       rotate: 0,
-      duration: 0.45,
-      stagger: 0.025,
+      duration: CHAR_DURATION,
+      stagger: CHAR_STAGGER,
       ease: "power2.out",
     });
     if (bodyEls.length) {
