@@ -100,17 +100,14 @@ conflicts with an existing `project.md` constraint.
   could be styled like a torn sticky note (slight rotation, small shadow,
   maybe a tiny tape strip) instead of a plain left-border blockquote,
   reinforcing the paper/desk metaphor in a spot that already exists.
-- **Washi-tape variant for some images** — alternate between a pin and a
-  short diagonal "tape strip" across a corner for visual variety across
-  multiple screenshots, so they don't all look identical.
 - **Nav active-link underline as a scribble** *(refines the earlier-agreed
   "nav active-link underline")* — instead of a plain sliding bar, use a small
   scribble-underline SVG that draws itself under the active nav item.
 - **Margin-note style annotations** — small Caveat-font asides near a few key
   moments (e.g. next to the architecture reflection, or a callout on the
   Capabilities section) that animate in with a quick handwritten flourish,
-  like a note scribbled in a margin. Low priority, easy to overdo — treat as
-  optional/stretch, and only if 1–2 spots, not sprinkled everywhere.
+  like a note scribbled in a margin. Keep to 1–2 spots, not sprinkled
+  everywhere, to avoid overdoing it.
 - **NOT recommended: custom pencil cursor.** `project.md` explicitly lists
   "custom cursors that reduce usability" as something to avoid. Skipping
   this even though it would reinforce the theme.
@@ -137,30 +134,33 @@ direction above. Foundation (GSAP install + config) is already done.
    experience timeline items) — reuses the same ScrollTrigger conventions.
 4. **Scribble draw-in** for `underline-scribble` / `scribble-circle` SVGs
    (stroke-dashoffset reveal).
-5. **`PinnedImage` component** + apply to `ProjectCard` and case-study
-   screenshot slots.
+5. **`TapedImage` component** (washi-tape strip decoration) + apply to
+   `ProjectCard` and case-study screenshot slots.
 6. **Architecture diagram sequential animation** on the case-study page —
-   natural pairing with `PinnedImage` if the diagram steps get the
-   pinned-note treatment.
+   natural pairing with `TapedImage` if the diagram steps get the same
+   taped-note treatment.
 7. **Sticky-note blockquote styling** for the architecture reflection quote.
-8. **Scroll-pinned Hero section** (previously agreed as the riskiest/last
+8. **Margin-note annotations** — 1–2 well-chosen spots only (e.g. next to
+   the architecture reflection and/or a Capabilities callout).
+9. **Scroll-pinned Hero section** (previously agreed as the riskiest/last
    item — unchanged position).
-9. *Optional, revisit later:* washi-tape image variant, margin-note
-   annotations, paper-grain texture — only after the above feels good and
-   isn't visually overloaded.
+10. *Optional, revisit later:* paper-grain texture — only after the above
+    feels good and isn't visually overloaded.
 
 Every step must be checked against `prefers-reduced-motion` via
 `gsap.matchMedia()` (skip straight to end-state, no animation) before being
 considered done.
 
-## Open questions before starting
+## Decisions (resolved)
 
-- Pin vs. clip vs. tape — one consistent decorative style everywhere, or a
-  deliberate mix for variety? One consistent, go for the one that is the easiest to implement, and maintain.
-- Should the heading write-in play **every time** a section scrolls into
-  view, or **only once per page load** (`ScrollTrigger` `once: true`)? Once
-  is likely less repetitive/distracting on repeated scroll-up-scroll-down. Yes, only once.
-- Any objection to the sticky-note blockquote / margin-note ideas, or should
-  those stay out of scope for now and only the two explicitly requested
-  ideas (heading write-in, pinned images) plus the previously-agreed
-  scribble/diagram/scroll-pin items move forward? Those are great ideas, please include these ideas as well.
+- **Decorative style:** a single consistent style everywhere — **washi-tape
+  strip** (a short rotated semi-transparent rectangle across a top corner).
+  Chosen over a pin/thumbtack or paperclip because it's the simplest to
+  build (a styled `div`, no illustrated SVG artwork needed) and the easiest
+  to maintain/restyle later. "`PinnedImage`" in the plan above is renamed to
+  **`TapedImage`** to match.
+- **Reveal frequency:** heading write-in (and all scroll-triggered reveals)
+  play **once per page load** (`ScrollTrigger` `once: true`), not every time
+  a section re-enters the viewport.
+- **Sticky-note blockquote and margin-note annotations are in scope** —
+  folded into the main implementation order below, no longer optional/stretch.

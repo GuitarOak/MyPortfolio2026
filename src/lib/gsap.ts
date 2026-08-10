@@ -5,13 +5,14 @@
 // stays the single source of truth for GSAP configuration.
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
 
 // Guard against running on the server (GSAP/ScrollTrigger require the DOM).
 // Calling registerPlugin() more than once (e.g. on Fast Refresh) is safe —
 // GSAP just re-registers the same plugin, it doesn't throw or duplicate.
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
+  gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 }
 
 /**
@@ -27,4 +28,4 @@ export function prefersReducedMotion(): boolean {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-export { gsap, ScrollTrigger, useGSAP };
+export { gsap, ScrollTrigger, SplitText, useGSAP };
