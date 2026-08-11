@@ -61,7 +61,11 @@ export function useWriteInReveal<
       return;
     }
 
-    const split = new SplitText(headingEl, { type: "chars" });
+    // "words,chars" rather than just "chars": splitting into chars alone makes
+    // every character its own inline-block box, so the browser will happily
+    // break a line mid-word ("Develo / per"). Wrapping chars in word elements
+    // keeps each word an unbreakable unit while still animating per character.
+    const split = new SplitText(headingEl, { type: "words,chars" });
 
     gsap.set(split.chars, {
       opacity: 0,

@@ -8,7 +8,7 @@ export const nav = [
 
 export const site = {
   name: "Emil Karlsson",
-  title: "Developer with a systems perspective",
+  title: "User-Centric Developer",
   supportingText:
     "I design and build digital platforms, internal tools and integrations that turn business requirements into maintainable technical solutions.",
   techRow: ["TypeScript", "React", "Node.js", "APIs", "Firebase", "WordPress"],

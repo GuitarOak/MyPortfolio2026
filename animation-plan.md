@@ -143,16 +143,25 @@ direction above. Foundation (GSAP install + config) is already done.
    (a) a `background-image` and a `border-radius` oval, neither of which can be
    stroke-animated, and (b) **unused anywhere in the codebase**. So this became
    a placement decision as much as an animation one. Implemented as real inline
-   SVGs in two deliberate spots only:
-   - `ScribbleUnderline` under "systems perspective" in the Hero `h1`, delayed
-     by `writeInDuration()` so it lands exactly as the heading finishes writing.
-   - `ScribbleCircle` (`src/components/ScribbleCircle.tsx`) around "technical
-     ownership" in Contact — an open, overshooting loop rather than a perfect
-     oval, drawn on scroll-into-view.
-   The two original CSS utilities are now superseded and still unused; safe to
-   delete whenever.
+   SVGs. The **underline idea was scrapped** after review — only the circle
+   survived, now used in three places:
+   - `ScribbleCircle` around "User-Centric" in the Hero `h1`, delayed by
+     `writeInDuration()` so it lands as the heading finishes writing.
+   - Around "technical ownership" in Contact.
+   - Around "Next.js, React, TypeScript and Firebase" in Experience (with
+     `nowrap={false}`, since that phrase must be able to wrap on mobile).
+
+   Circle insets are in `em`, not `rem`, so the loop keeps identical visual
+   breathing room around a 72px headline and 14px body copy.
+
+   `ScribbleUnderline` still exists and is used by the nav active-link
+   underline (step 2); its `delay` prop is now unused. The two original CSS
+   utilities are superseded and unused; safe to delete whenever.
 5. **`TapedImage` component** (washi-tape strip decoration) + apply to
-   `ProjectCard` and case-study screenshot slots.
+   `ProjectCard`, the case-study screenshot slots **and the Hero portrait**.
+   The Hero portrait (`public/emil.png`) is already in place with the static
+   half of the treatment — rotation, white paper margin, lift shadow — so this
+   step adds the tape strip and the drop-in animation on top.
 6. **Architecture diagram sequential animation** on the case-study page —
    natural pairing with `TapedImage` if the diagram steps get the same
    taped-note treatment.
@@ -179,5 +188,9 @@ considered done.
 - **Reveal frequency:** heading write-in (and all scroll-triggered reveals)
   play **once per page load** (`ScrollTrigger` `once: true`), not every time
   a section re-enters the viewport.
+  - **Exception:** the How I Solve Problems sequence is **scrubbed to scroll
+    position** (`scrub: 0.5`), so scrolling drives the drawing and reversing
+    un-draws it. A scrubbed timeline is inherently reversible; that reversal
+    is the point of the effect there, so `once` does not apply.
 - **Sticky-note blockquote and margin-note annotations are in scope** —
   folded into the main implementation order below, no longer optional/stretch.

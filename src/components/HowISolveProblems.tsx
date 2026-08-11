@@ -1,6 +1,6 @@
 import { Container } from "./Container";
 import { SectionHeading } from "./SectionHeading";
-import { RevealGroup } from "./RevealGroup";
+import { ProcessSteps } from "./ProcessSteps";
 
 const steps = [
   {
@@ -26,19 +26,10 @@ export function HowISolveProblems() {
     <section className="py-20 md:py-28">
       <Container>
         <SectionHeading number="02" title="How I Solve Problems" />
-        <RevealGroup className="grid gap-8 md:grid-cols-4">
-          {steps.map((step, index) => (
-            <div key={step.title} className="">
-              <span className="font-mono text-xs text-muted">{String(index + 1).padStart(2, "0")}</span>
-              <h3 className="mt-2 text-xl font-semibold text-foreground">{step.title}</h3>
-              <ul className="mt-3 space-y-1.5 text-sm text-muted">
-                {step.points.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </RevealGroup>
+        {/* Markup and animation live in ProcessSteps: the columns and the
+            arrows between them are one sequenced timeline, so they can't be
+            split across separate components. */}
+        <ProcessSteps steps={steps} />
       </Container>
     </section>
   );

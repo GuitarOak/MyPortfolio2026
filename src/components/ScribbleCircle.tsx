@@ -8,6 +8,12 @@ type ScribbleCircleProps = {
   children: ReactNode;
   /** Seconds to wait after the trigger fires before drawing. */
   delay?: number;
+  /**
+   * Keep the phrase on one line. Correct for short phrases, but a long one
+   * would overflow narrow viewports — pass false there and the loop stretches
+   * around the wrapped block instead, which still reads as circling by hand.
+   */
+  nowrap?: boolean;
 };
 
 /**
@@ -20,7 +26,7 @@ type ScribbleCircleProps = {
  * read as pen rather than CSS. It draws itself in via stroke-dashoffset when
  * scrolled into view, once per page load.
  */
-export function ScribbleCircle({ children, delay = 0 }: ScribbleCircleProps) {
+export function ScribbleCircle({ children, delay = 0, nowrap = true }: ScribbleCircleProps) {
   const pathRef = useRef<SVGPathElement | null>(null);
 
   useGSAP(() => {
@@ -58,15 +64,19 @@ export function ScribbleCircle({ children, delay = 0 }: ScribbleCircleProps) {
   }, { dependencies: [delay] });
 
   return (
-    <span className="relative inline-block whitespace-nowrap">
+    <span className={`relative inline-block ${nowrap ? "whitespace-nowrap" : "max-w-full"}`}>
       {children}
       <svg
         aria-hidden="true"
         focusable="false"
         viewBox="0 0 200 60"
         preserveAspectRatio="none"
-        // Inset negatively so the loop sits around the text, not on top of it.
-        className="pointer-events-none absolute -inset-x-3 -inset-y-2 h-[calc(100%+1rem)] w-[calc(100%+1.5rem)] overflow-visible text-accent"
+        className="pointer-events-none absolute overflow-visible text-accent"
+        // Offsets are in em, not rem/px, so the loop keeps the same visual
+        // breathing room whether it's around a 72px headline or 14px body copy.
+        // Generous enough that the stroke clears ascenders and descenders
+        // instead of cutting through the letterforms.
+        style={{ left: "-0.5em", right: "-0.5em", top: "-0.34em", bottom: "-0.34em" }}
       >
         <path
           ref={pathRef}

@@ -1,7 +1,27 @@
 import { Container } from "./Container";
 import { SectionHeading } from "./SectionHeading";
 import { RevealGroup } from "./RevealGroup";
+import { ScribbleCircle } from "./ScribbleCircle";
 import { experience } from "@/content/experience";
+
+// The core stack, circled by hand where it appears in the timeline. Kept here
+// rather than as markup in content/experience.ts so the content layer stays
+// plain strings (it's also consumed for SEO/metadata, which must not contain JSX).
+const CIRCLED_PHRASE = "Next.js, React, TypeScript and Firebase";
+
+function renderPoint(point: string) {
+  if (!point.includes(CIRCLED_PHRASE)) return point;
+
+  const [before, after] = point.split(CIRCLED_PHRASE);
+  return (
+    <>
+      {before}
+      {/* nowrap disabled: the phrase is too long to hold one line on mobile. */}
+      <ScribbleCircle nowrap={false}>{CIRCLED_PHRASE}</ScribbleCircle>
+      {after}
+    </>
+  );
+}
 
 export function Experience() {
   return (
@@ -18,7 +38,7 @@ export function Experience() {
               </div>
               <ul className="space-y-1.5 text-sm text-foreground list-disc pl-4">
                 {entry.points.map((point) => (
-                  <li key={point}>{point}</li>
+                  <li key={point}>{renderPoint(point)}</li>
                 ))}
               </ul>
             </li>
