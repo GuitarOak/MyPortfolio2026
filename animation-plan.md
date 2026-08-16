@@ -135,9 +135,10 @@ direction above. Foundation (GSAP install + config) is already done.
    hand-drawn `.ink-rule-bottom` / `.ink-rule-top` utilities.
 3. ~~**Section scroll-entrances**~~ — **DONE** via the `RevealGroup` component
    (`src/components/RevealGroup.tsx`), which staggers its direct children.
-   Applied to How I Solve Problems, Capabilities, Experience, About and
-   Contact. **`ProjectCard`s deliberately excluded** — deferred to step 5 so
-   each card animates together with its taped screenshot as one motion.
+   Applied to Experience, About and Contact. **How I Solve Problems and
+   Capabilities now use pinned scrubbed timelines instead** (see below).
+   **`ProjectCard`s deliberately excluded** — deferred to step 5 so each card
+   animates together with its taped screenshot as one motion.
 4. ~~**Scribble draw-in**~~ — **DONE**, but not as originally written. The
    `.underline-scribble` / `.scribble-circle` CSS utilities turned out to be
    (a) a `background-image` and a `border-radius` oval, neither of which can be
@@ -157,11 +158,27 @@ direction above. Foundation (GSAP install + config) is already done.
    `ScribbleUnderline` still exists and is used by the nav active-link
    underline (step 2); its `delay` prop is now unused. The two original CSS
    utilities are superseded and unused; safe to delete whenever.
-5. **`TapedImage` component** (washi-tape strip decoration) + apply to
-   `ProjectCard`, the case-study screenshot slots **and the Hero portrait**.
-   The Hero portrait (`public/emil.png`) is already in place with the static
-   half of the treatment — rotation, white paper margin, lift shadow — so this
-   step adds the tape strip and the drop-in animation on top.
+
+   **Pinned scrubbed timelines added to How I Solve Problems and
+   Capabilities:** both sections now pin the page and map scroll input onto
+   their reveal timelines, so scrolling drives the animation and reversing
+   un-draws it. Implemented in `ProcessSteps.tsx` (4 columns + arrows) and
+   `CapabilityColumns.tsx` (3 columns). This is the one intentional departure
+   from the "play once per page load" decision — scrubbed timelines are
+   inherently reversible, which is the point of the effect.
+5. ~~**`TapedImage` component**~~ — **DONE.** Wraps images with a white paper
+   margin (Polaroid-ish bottom edge), slight rotation, lift shadow, and a
+   washi-tape strip across the top-left corner. The image drops and settles
+   into place (overshoots slightly, then bounces back) on first view. Applied
+   to:
+   - Hero portrait (`trigger="load"` since it's above the fold)
+   - `ProjectCard` screenshots (scroll-triggered)
+   - Case-study page screenshot (scroll-triggered)
+   
+   The container reserves its final size from first paint and only animates
+   `transform`, so there's no layout shift — safe to use above the fold.
+   `ProjectCard`s are now wrapped in `RevealGroup` so each card reveals with
+   its taped screenshot as one motion.
 6. **Architecture diagram sequential animation** on the case-study page —
    natural pairing with `TapedImage` if the diagram steps get the same
    taped-note treatment.
@@ -172,6 +189,8 @@ direction above. Foundation (GSAP install + config) is already done.
    item — unchanged position).
 10. *Optional, revisit later:* paper-grain texture — only after the above
     feels good and isn't visually overloaded.
+11. **Review all copy and SEO** to align with positioning ("User-Centric
+    Developer" vs "Developer with a Systems Perspective").
 
 Every step must be checked against `prefers-reduced-motion` via
 `gsap.matchMedia()` (skip straight to end-state, no animation) before being

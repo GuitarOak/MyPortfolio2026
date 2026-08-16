@@ -4,6 +4,7 @@ import { useRef } from "react";
 // ScrollTrigger isn't imported directly: the plugin is registered in @/lib/gsap
 // and used declaratively via the timeline's `scrollTrigger` config below.
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { SectionHeading } from "./SectionHeading";
 import { ScribbleArrow, SCRIBBLE_ARROW_ATTR } from "./ScribbleArrow";
 
 type Step = {
@@ -19,12 +20,16 @@ type ProcessStepsProps = {
  * The four-step process grid, animated as one continuous sequence:
  * column 1 reveals → its arrow draws → column 2 reveals → and so on.
  *
- * The sequence is **scrubbed to scroll position**, so the user's scrolling
- * drives the pen: stop scrolling and the drawing stops with you; scroll back up
- * and it un-draws. (This is the one place that intentionally departs from the
- * "play once per page load" decision — a scrubbed timeline is inherently
- * reversible, which is what makes it feel scroll-driven rather than merely
- * scroll-triggered.)
+ * The sequence is **scrubbed to scroll position inside a pinned container**, so
+ * the page stops scrolling and your scroll input drives the timeline instead:
+ * the pen draws as you "scroll" (really: scrub the timeline), and when the
+ * sequence completes the page unpins and normal scrolling resumes. Scroll back
+ * up and the timeline reverses, un-drawing the strokes.
+ *
+ * This is the one place that intentionally departs from the "play once per page
+ * load" decision — a scrubbed + pinned timeline is inherently reversible, which
+ * is what makes it feel like you're controlling the pen rather than watching a
+ * triggered animation.
  *
  * It owns the whole chain in a single timeline rather than using RevealGroup
  * plus self-triggering arrows: on desktop all four columns sit side by side and
@@ -33,11 +38,13 @@ type ProcessStepsProps = {
  * which the scroll position then maps onto.
  */
 export function ProcessSteps({ steps }: ProcessStepsProps) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const gridRef = useRef<HTMLDivElement | null>(null);
 
   useGSAP(() => {
+    const container = containerRef.current;
     const grid = gridRef.current;
-    if (!grid) return;
+    if (!container || !grid) return;
 
     const columns = Array.from(grid.children) as HTMLElement[];
     if (!columns.length) return;
@@ -61,16 +68,21 @@ export function ProcessSteps({ steps }: ProcessStepsProps) {
       gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
     });
 
-    // Scrubbed: progress through the timeline is mapped to scroll position
-    // between `start` and `end`. The 0.5s scrub smooths the mapping so the
-    // strokes glide rather than jitter with every scroll tick.
+    // Scrubbed inside a pinned container: the page stops scrolling when the
+    // container (heading + grid) reaches the trigger point, and scroll input
+    // drives the timeline instead. The heading stays visible at the top while
+    // the grid scrubs below it. When the timeline completes, the page unpins.
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: grid,
-        // Begins once the grid is well into view and completes before it
-        // leaves, so the whole sequence is watchable without pinning the page.
-        start: "top 75%",
-        end: "bottom 55%",
+        trigger: container,
+        // Pin once the heading reaches the top (accounting for nav height).
+        start: "top 125px",
+        // The end determines how much scroll distance maps onto the timeline.
+        // "+=150%" means you scroll roughly 1.5 viewports to play the whole
+        // sequence — enough that each step feels deliberate, not so much that
+        // it drags. Tune this if the pace feels wrong.
+        end: "+=150%",
+        pin: true,
         scrub: 0.5,
       },
     });
@@ -85,10 +97,15 @@ export function ProcessSteps({ steps }: ProcessStepsProps) {
         tl.to(head, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out" }, "-=0.08");
       }
     });
-  }, { scope: gridRef });
+  }, { scope: containerRef });
 
   return (
-    <div ref={gridRef} className="grid gap-8 md:grid-cols-4">
+    <div ref={containerRef}>
+      {/* Padding prevents the heading from hiding under the sticky nav when pinned. */}
+      <div className="pt-20">
+        <SectionHeading number="02" title="How I Solve Problems" />
+      </div>
+      <div ref={gridRef} className="grid gap-8 md:grid-cols-4">
       {steps.map((step, index) => (
         <div key={step.title} className="relative">
           <span className="font-mono text-xs text-muted">
@@ -104,6 +121,7 @@ export function ProcessSteps({ steps }: ProcessStepsProps) {
           {index < steps.length - 1 ? <ScribbleArrow /> : null}
         </div>
       ))}
+      </div>
     </div>
   );
 }

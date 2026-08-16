@@ -1,5 +1,4 @@
 import { Container } from "./Container";
-import { SectionHeading } from "./SectionHeading";
 import { ProcessSteps } from "./ProcessSteps";
 
 const steps = [
@@ -25,10 +24,7 @@ export function HowISolveProblems() {
   return (
     <section className="py-20 md:py-28">
       <Container>
-        <SectionHeading number="02" title="How I Solve Problems" />
-        {/* Markup and animation live in ProcessSteps: the columns and the
-            arrows between them are one sequenced timeline, so they can't be
-            split across separate components. */}
+        {/* Heading + grid are both inside ProcessSteps so they pin together. */}
         <ProcessSteps steps={steps} />
       </Container>
     </section>

@@ -6,6 +6,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Container } from "@/components/Container";
 import { StatusLabel } from "@/components/StatusLabel";
+import { TapedImage } from "@/components/TapedImage";
 import { projects } from "@/content/projects";
 import { site } from "@/content/site";
 
@@ -79,14 +80,16 @@ export default async function ProjectCaseStudyPage({
             <p className="mt-4 max-w-2xl text-lg text-muted">{project.summary}</p>
 
             {project.screenshots && project.screenshots.length > 0 && (
-              <div className="relative mt-10 aspect-video overflow-hidden border border-border bg-surface">
-                <Image
-                  src={project.screenshots[0]}
-                  alt={`Screenshot of ${project.title}`}
-                  fill
-                  className="object-cover"
-                />
-              </div>
+              <TapedImage className="mt-10">
+                <div className="relative aspect-video w-full overflow-hidden rounded-sm bg-surface">
+                  <Image
+                    src={project.screenshots[0]}
+                    alt={`Screenshot of ${project.title}`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </TapedImage>
             )}
           </Container>
         </section>

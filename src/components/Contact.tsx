@@ -1,7 +1,6 @@
 import { Container } from "./Container";
 import { SectionHeading } from "./SectionHeading";
 import { RevealGroup } from "./RevealGroup";
-import { ScribbleCircle } from "./ScribbleCircle";
 import { site } from "@/content/site";
 
 export function Contact() {
@@ -13,9 +12,7 @@ export function Contact() {
         <RevealGroup>
           <p className="max-w-xl text-base md:text-lg text-foreground">
             I am looking for developer, application specialist and junior solution-architecture roles where I
-            can combine hands-on implementation with systems thinking and{" "}
-            {/* Circled by hand at the point where the page asks for a decision. */}
-            <ScribbleCircle delay={0.35}>technical ownership</ScribbleCircle>.
+            can combine hands-on implementation with systems thinking and technical ownership.
           </p>
         </RevealGroup>
 

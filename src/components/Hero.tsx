@@ -5,6 +5,7 @@ import { Container } from "./Container";
 import { site } from "@/content/site";
 import { useWriteInReveal, writeInDuration } from "@/hooks/useWriteInReveal";
 import { ScribbleCircle } from "./ScribbleCircle";
+import { TapedImage } from "./TapedImage";
 
 // The phrase circled by hand in the headline, pulled out of site.title rather
 // than duplicated, so the copy stays defined in one place.
@@ -70,24 +71,20 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Sits on the page like a photo dropped on a desk: slight rotation,
-              a white paper margin and a soft lift shadow. The washi-tape strip
-              and drop-in animation arrive with TapedImage in step 5 of the
-              animation plan — this is the static groundwork for it. */}
-          <div className="justify-self-center lg:justify-self-end">
-            <div className="rotate-2 rounded-sm bg-surface p-3 pb-10 shadow-[0_10px_30px_-10px_rgba(17,17,17,0.35)]">
-              <Image
-                src="/emil.png"
-                alt={`${site.name}, ${site.title}`}
-                width={640}
-                height={960}
-                // Above the fold and a likely LCP element, so it must not be lazy.
-                priority
-                sizes="(min-width: 1024px) 320px, 240px"
-                className="h-auto w-[240px] rounded-sm object-cover lg:w-[320px]"
-              />
-            </div>
-          </div>
+          {/* Portrait with the taped-photo treatment: drops and settles on load,
+              tape strip appears once it's settled. trigger="load" since it's
+              above the fold — no point waiting for scroll. */}
+          <TapedImage trigger="load" className="justify-self-center lg:justify-self-end">
+            <Image
+              src="/emil.png"
+              alt={`${site.name}, ${site.title}`}
+              width={640}
+              height={960}
+              priority
+              sizes="(min-width: 1024px) 320px, 240px"
+              className="h-auto w-[240px] rounded-sm object-cover lg:w-[320px]"
+            />
+          </TapedImage>
         </div>
       </Container>
     </section>
