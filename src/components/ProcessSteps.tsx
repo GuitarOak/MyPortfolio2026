@@ -5,6 +5,7 @@ import { useRef } from "react";
 // and used declaratively via the timeline's `scrollTrigger` config below.
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 import { SectionHeading } from "./SectionHeading";
+import { MarginNote } from "./MarginNote";
 import { ScribbleArrow, SCRIBBLE_ARROW_ATTR } from "./ScribbleArrow";
 
 type Step = {
@@ -100,7 +101,11 @@ export function ProcessSteps({ steps }: ProcessStepsProps) {
   }, { scope: containerRef });
 
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} className="relative">
+      {/* Margin note pins with the section */}
+      <MarginNote position="left">
+        Not just code — understanding the whole system
+      </MarginNote>
       {/* Padding prevents the heading from hiding under the sticky nav when pinned. */}
       <div className="pt-20">
         <SectionHeading number="02" title="How I Solve Problems" />

@@ -24,7 +24,7 @@ export function HowISolveProblems() {
   return (
     <section className="py-20 md:py-28">
       <Container>
-        {/* Heading + grid are both inside ProcessSteps so they pin together. */}
+        {/* Heading + grid + margin note are all inside ProcessSteps so they pin together. */}
         <ProcessSteps steps={steps} />
       </Container>
     </section>

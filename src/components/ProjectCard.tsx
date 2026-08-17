@@ -1,8 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Project } from "@/content/types";
 import { StatusLabel } from "./StatusLabel";
-import { TapedImage } from "./TapedImage";
 
 // A project only gets a dedicated case-study page once it has real content.
 const CASE_STUDY_SLUGS = new Set(["internal-metrics-platform", "link-proposal-workflow-system"]);
@@ -23,20 +21,7 @@ export function ProjectCard({ project }: { project: Project }) {
       </h3>
       <p className="mt-3 text-base text-muted">{project.summary}</p>
 
-      {project.screenshots && project.screenshots.length > 0 && (
-        <TapedImage className="mt-6">
-          <div className="relative aspect-video w-full overflow-hidden rounded-sm bg-background">
-            <Image
-              src={project.screenshots[0]}
-              alt={`Screenshot of ${project.title}`}
-              fill
-              className="object-cover"
-            />
-          </div>
-        </TapedImage>
-      )}
-
-      <div className="mt-8">
+      <div className="mt-6">
         <h4 className="font-mono text-xs uppercase tracking-wide text-muted">Problem</h4>
         <p className="mt-2 text-sm text-foreground">{project.problem}</p>
       </div>

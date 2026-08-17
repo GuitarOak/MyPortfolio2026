@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
 import { SectionHeading } from "./SectionHeading";
+import { MarginNote } from "./MarginNote";
 import type { CapabilityGroup } from "@/content/types";
 
 type CapabilityColumnsProps = {
@@ -59,7 +60,11 @@ export function CapabilityColumns({ groups }: CapabilityColumnsProps) {
   }, { scope: containerRef });
 
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} className="relative">
+      {/* Margin note pins with the section */}
+      <MarginNote position="right">
+        Frontend to architecture to deployment
+      </MarginNote>
       {/* Padding prevents the heading from hiding under the sticky nav when pinned. */}
       <div className="pt-20">
         <SectionHeading number="03" title="Capabilities" />

@@ -166,25 +166,41 @@ direction above. Foundation (GSAP install + config) is already done.
    `CapabilityColumns.tsx` (3 columns). This is the one intentional departure
    from the "play once per page load" decision — scrubbed timelines are
    inherently reversible, which is the point of the effect.
-5. ~~**`TapedImage` component**~~ — **DONE.** Wraps images with a white paper
-   margin (Polaroid-ish bottom edge), slight rotation, lift shadow, and a
-   washi-tape strip across the top-left corner. The image drops and settles
-   into place (overshoots slightly, then bounces back) on first view. Applied
-   to:
+5. ~~**`TapedImage` component**~~ — **DONE.** Wraps images (or any content) with
+   a white paper margin (Polaroid-ish bottom edge), slight rotation, lift shadow,
+   and a washi-tape strip across the top-left corner. The content drops and
+   settles into place (overshoots slightly, then bounces back) on first view.
+   Applied to:
    - Hero portrait (`trigger="load"` since it's above the fold)
-   - `ProjectCard` screenshots (scroll-triggered)
-   - Case-study page screenshot (scroll-triggered)
+   - Architecture diagram steps (scroll-triggered, see step 6)
+   
+   **Project screenshots removed** per user request — `ProjectCard` and
+   case-study page no longer show images. `ProjectCard`s are wrapped in
+   `RevealGroup` so each card reveals as one motion.
    
    The container reserves its final size from first paint and only animates
    `transform`, so there's no layout shift — safe to use above the fold.
-   `ProjectCard`s are now wrapped in `RevealGroup` so each card reveals with
-   its taped screenshot as one motion.
-6. **Architecture diagram sequential animation** on the case-study page —
-   natural pairing with `TapedImage` if the diagram steps get the same
-   taped-note treatment.
-7. **Sticky-note blockquote styling** for the architecture reflection quote.
-8. **Margin-note annotations** — 1–2 well-chosen spots only (e.g. next to
-   the architecture reflection and/or a Capabilities callout).
+6. ~~**Architecture diagram sequential animation**~~ — **DONE.** Implemented in
+   `ArchitectureDiagram.tsx` on the Internal Metrics Platform case-study page.
+   Each step appears one by one as you scroll (scrubbed timeline, starts at
+   `top 85%`). Steps and arrows stagger in sequence, controlled by scroll
+   position. The reflection quote appears after all steps are visible.
+7. ~~**Sticky-note blockquote styling**~~ — **DONE.** Implemented in
+   `StickyNote.tsx` and applied to the architecture reflection quote. Yellow
+   paper appearance (`#fef3c7` background), slight rotation (`-1deg`), subtle
+   drop shadow, and a paper texture via CSS grid pattern. Animates in with a
+   drop-and-settle motion (`back.out` easing) on scroll. Triggers at `top 95%`
+   and plays once.
+8. ~~**Margin-note annotations**~~ — **DONE.** Implemented in `MarginNote.tsx`
+   and applied to two sections on the homepage:
+   - **How I Solve Problems** (left margin): "Not just code — understanding the
+     whole system" — emphasizes the systems thinking approach
+   - **Capabilities** (right margin): "Frontend to architecture to deployment" —
+     highlights the full-stack nature
+   
+   Styled with the pencil font, slight rotation (±2deg), and a simple arrow
+   pointing to the content. Fades in at `top 85%`. Hidden on mobile/tablet
+   (only visible on `lg` breakpoint and above).
 9. **Scroll-pinned Hero section** (previously agreed as the riskiest/last
    item — unchanged position).
 10. *Optional, revisit later:* paper-grain texture — only after the above

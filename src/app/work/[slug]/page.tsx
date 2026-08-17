@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -6,7 +5,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Container } from "@/components/Container";
 import { StatusLabel } from "@/components/StatusLabel";
-import { TapedImage } from "@/components/TapedImage";
+import { ArchitectureDiagram } from "@/components/ArchitectureDiagram";
 import { projects } from "@/content/projects";
 import { site } from "@/content/site";
 
@@ -78,19 +77,6 @@ export default async function ProjectCaseStudyPage({
               {project.title}
             </h1>
             <p className="mt-4 max-w-2xl text-lg text-muted">{project.summary}</p>
-
-            {project.screenshots && project.screenshots.length > 0 && (
-              <TapedImage className="mt-10">
-                <div className="relative aspect-video w-full overflow-hidden rounded-sm bg-surface">
-                  <Image
-                    src={project.screenshots[0]}
-                    alt={`Screenshot of ${project.title}`}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </TapedImage>
-            )}
           </Container>
         </section>
 
@@ -126,33 +112,7 @@ export default async function ProjectCaseStudyPage({
             </div>
 
             {project.slug === "internal-metrics-platform" && (
-              <div>
-                <h2 className="font-mono text-xs uppercase tracking-wide text-muted">Architecture</h2>
-                <div
-                  className="mt-4 flex flex-col items-stretch gap-2 border border-border bg-surface p-6"
-                  role="img"
-                  aria-label={`Architecture flow: ${diagramSteps.join(" to ")}`}
-                >
-                  {diagramSteps.map((step, index) => (
-                    <div key={step}>
-                      <div className="border border-border bg-background px-4 py-3 font-mono text-sm text-foreground">
-                        {step}
-                      </div>
-                      {index < diagramSteps.length - 1 && (
-                        <div className="flex justify-center py-1 text-muted" aria-hidden>
-                          ↓
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-                <blockquote className="mt-6 border-l-2 border-accent pl-6 text-base text-muted italic">
-                  &ldquo;Firebase allowed rapid development, authentication and flexible data storage.
-                  However, the nested document structure made some bulk operations and reporting more
-                  complicated. At greater scale, I would evaluate a relational model or a dedicated search
-                  and reporting layer.&rdquo;
-                </blockquote>
-              </div>
+              <ArchitectureDiagram steps={diagramSteps} />
             )}
 
             {project.decisions.length > 0 && (

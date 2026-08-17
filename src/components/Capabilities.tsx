@@ -6,7 +6,7 @@ export function Capabilities() {
   return (
     <section id="capabilities" className="py-20 md:py-28">
       <Container>
-        {/* Heading + grid are both inside CapabilityColumns so they pin together. */}
+        {/* Heading + grid + margin note are all inside CapabilityColumns so they pin together. */}
         <CapabilityColumns groups={capabilities} />
       </Container>
     </section>
